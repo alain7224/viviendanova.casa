@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #FAFAFA;
+  color: #212121;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Estilos personalizados */
+.card-flat {
+  @apply rounded-lg border border-gray-200 shadow-none hover:shadow-md transition-shadow;
+}
+
+.card-3d {
+  @apply rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all;
+}
+
+.card-shadow {
+  @apply rounded-lg shadow-md hover:shadow-xl transition-shadow;
+}
+
+.card-frame {
+  @apply border-4 border-gray-300 rounded-lg hover:border-primary transition-colors;
+}
+
+.card-grid {
+  @apply rounded-none border border-gray-300 shadow-none hover:bg-gray-50 transition-colors;
+}
+
+.card-minimal {
+  @apply rounded-sm border-b-2 border-b-primary shadow-none hover:border-b-4 transition-all;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #2E7D32 0%, #1976D2 100%);
+}
+
+.btn-primary {
+  @apply bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-all;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-white px-6 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-all;
+}
+
+.btn-accent {
+  @apply bg-accent text-white px-6 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-all;
+}
+
+.loading-spinner {
+  @apply border-4 border-gray-300 border-t-primary rounded-full animate-spin;
+}
+
+.map-popup {
+  @apply absolute bg-white rounded-lg shadow-lg p-4 z-50 max-w-xs;
+}
+
+.map-arrow {
+  @apply absolute w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent;
+}
