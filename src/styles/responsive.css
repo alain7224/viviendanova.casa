@@ -1,0 +1,156 @@
+/* Responsive Design Breakpoints */
+
+/* Mobile First Approach */
+/* Base styles for mobile (320px and up) */
+
+@media (max-width: 480px) {
+  /* Extra small devices */
+  .container {
+    padding: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  .property-card {
+    padding: 0.75rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hidden-mobile {
+    display: none;
+  }
+}
+
+/* Tablet (768px to 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    max-width: 100%;
+    padding: 1.25rem;
+  }
+
+  .grid-auto {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-sidebar {
+    width: 200px;
+  }
+
+  .map-height {
+    height: 400px;
+  }
+}
+
+/* Small Desktop (1025px to 1280px) */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .grid-auto {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Desktop (1281px to 1920px) */
+@media (min-width: 1281px) and (max-width: 1920px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .grid-auto {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Ultra-wide (1921px and up) */
+@media (min-width: 1921px) {
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .grid-auto {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Touch devices */
+@media (hover: none) and (pointer: coarse) {
+  button {
+    padding: 0.75rem 1rem;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .card-hover:hover {
+    transform: none;
+  }
+
+  .card-hover:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Landscape orientation */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero-section {
+    padding: 1rem 0;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* High DPI Displays (Retina) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  body {
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+  }
+
+  .card {
+    background-color: #2d2d2d;
+    border-color: #3d3d3d;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Large text preference */
+@media (prefers-contrast: more) {
+  body {
+    line-height: 1.8;
+  }
+
+  button,
+  a {
+    font-weight: 600;
+  }
+}
