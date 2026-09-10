@@ -7,6 +7,8 @@ interface PublicLayoutProps {
   onAdminClick?: () => void;
 }
 
+const logoSrc = `${import.meta.env.BASE_URL}logo-viviendanova.svg`;
+
 export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onAdminClick }) => {
   const isLoggedIn = useAdminStore((state) => state.isLoggedIn);
   const logout = useAdminStore((state) => state.logout);
@@ -16,8 +18,8 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children, onAdminCli
       <nav className="bg-white shadow-md sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between gap-4">
-            <a href="/" className="flex items-center gap-3 shrink-0">
-              <img src="/logo-viviendanova.svg" alt="viviendanova.casa" className="h-10 w-auto" />
+            <a href={import.meta.env.BASE_URL} className="flex items-center gap-3 shrink-0">
+              <img src={logoSrc} alt="viviendanova.casa" className="h-10 w-auto" />
             </a>
 
             <div className="flex items-center gap-3">
