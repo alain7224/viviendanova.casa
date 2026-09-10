@@ -1,4 +1,4 @@
-import type { Property } from '@types/Property';
+import type { Property } from '@/types/Property';
 
 const mockProperties: Property[] = [
   {

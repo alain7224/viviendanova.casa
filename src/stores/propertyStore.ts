@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Property } from '@types/Property';
+import type { Property } from '@/types/Property';
 
 interface PropertyStore {
   properties: Property[];

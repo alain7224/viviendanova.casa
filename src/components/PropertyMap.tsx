@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import type { Property } from '@types/Property';
+import type { Property } from '@/types/Property';
 
 interface PropertyMapProps {
   properties: Property[];

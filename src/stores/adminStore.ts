@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { AdminUser, AdminSession, AdminSettings } from '@types/Admin';
+import type { AdminUser, AdminSession, AdminSettings } from '@/types/Admin';
 
 interface AdminStore {
   user: AdminUser | null;

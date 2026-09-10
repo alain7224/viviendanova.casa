@@ -15,7 +15,7 @@ export const AdminSettings: React.FC = () => {
   };
 
   const handleSave = async () => {
-    await updateSettings({ colors, cardStyle });
+    await updateSettings({ colors: colors as any, cardStyle });
     alert('Configuración guardada');
   };
 
@@ -27,7 +27,7 @@ export const AdminSettings: React.FC = () => {
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-2xl font-bold mb-6">Paleta de Colores</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Object.entries(colors).map(([key, value]) => (
+          {Object.entries(colors as Record<string,string>).map(([key, value]) => (
             <div key={key}>
               <label className="block text-sm font-semibold mb-2 capitalize">{key}</label>
               <div className="flex gap-3">
