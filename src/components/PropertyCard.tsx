@@ -12,18 +12,8 @@ interface PropertyCardProps {
   bathrooms: number;
   features: string[];
   acceptedCryptos: string[];
-  style?: 'flat' | 'three_d' | 'shadow' | 'frame' | 'grid' | 'minimal';
   onClick?: () => void;
 }
-
-const cardStyles = {
-  flat: 'shadow-sm hover:shadow-md transition-shadow duration-300',
-  three_d: 'shadow-lg hover:-translate-y-1 transition-all duration-300 perspective',
-  shadow: 'shadow-xl hover:shadow-2xl transition-shadow duration-300',
-  frame: 'border-8 border-gray-200 p-4 hover:border-primary transition-colors',
-  grid: 'grid grid-cols-2 gap-2 shadow-md hover:shadow-lg',
-  minimal: 'border-b-2 border-accent p-4 hover:bg-gray-50 transition-colors',
-};
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({
   id,
@@ -35,77 +25,113 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   bathrooms,
   features,
   acceptedCryptos,
-  style = 'flat',
   onClick,
 }) => {
   const deviceType = useDeviceType();
   const t = useTranslation('es');
+  const [imageError, setImageError] = React.useState(false);
+
+  const FALLBACK_IMAGE =
+    'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?q=80&w=1200&auto=format&fit=crop';
 
   return (
     <div
-      className={`property-card ${cardStyles[style]} rounded-lg overflow-hidden cursor-pointer animate-fadeInUp`}
+      className="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/40 cursor-pointer transition-all duration-300 hover:border-cyan-400 hover:ring-1 hover:ring-cyan-400/50 hover:shadow-lg hover:shadow-cyan-400/20 backdrop-blur-sm"
       onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick?.();
+        }
+      }}
     >
-      {/* Image */}
-      <div className="relative w-full h-48 md:h-56 overflow-hidden">
+      {/* Image Container */}
+      <div className="relative w-full h-48 md:h-56 overflow-hidden bg-slate-950">
         <img
-          src={image}
+          src={imageError ? FALLBACK_IMAGE : image}
           alt={name}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          loading="lazy"
+          onError={() => setImageError(true)}
         />
+        
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        {/* Crypto Badge */}
         {acceptedCryptos.length > 0 && (
-          <div className="absolute top-2 right-2 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-semibold">
-            🪙 {acceptedCryptos.slice(0, 2).join(' · ')}
+          <div className="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-sm text-cyan-300 px-3 py-1 rounded-full text-xs font-semibold border border-cyan-500/40">
+            🪙 {acceptedCryptos.slice(0, 2).join(' • ')}
           </div>
         )}
+
+        {/* Location Button */}
         <button
-          className="absolute bottom-2 right-2 bg-primary hover:bg-primary/90 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-all"
+          className="absolute bottom-3 right-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 font-semibold"
           onClick={(e) => {
             e.stopPropagation();
             onClick?.();
           }}
+          aria-label="View property location"
         >
           📍
         </button>
       </div>
 
-      {/* Content */}
-      <div className="p-4 md:p-5">
-        <h3 className="text-lg md:text-xl font-bold text-text mb-2 line-clamp-2">
+      {/* Content Container */}
+      <div className="p-4 md:p-5 space-y-3">
+        {/* Title */}
+        <h3 className="text-base md:text-lg font-bold text-slate-100 line-clamp-2 group-hover:text-cyan-300 transition-colors">
           {name}
         </h3>
 
-        <p className="text-2xl md:text-3xl font-bold text-primary mb-3">
-          {price.toLocaleString()} {currency}
+        {/* Price */}
+        <p className="text-2xl md:text-3xl font-bold text-cyan-400 tracking-tight">
+          USD {price.toLocaleString('es-DO')}
         </p>
 
-        {/* Features */}
-        <div className="flex gap-4 mb-3 text-sm md:text-base">
-          <span className="flex items-center gap-1">
-            🛏️ {bedrooms} {t('bedrooms')}
+        {/* Specs */}
+        <div className="flex gap-4 text-sm md:text-base text-slate-300">
+          <span className="flex items-center gap-1.5 hover:text-cyan-300 transition-colors">
+            <span className="text-lg">🛏️</span>
+            {bedrooms} {t('bedrooms')}
           </span>
-          <span className="flex items-center gap-1">
-            🚿 {bathrooms} {t('bathrooms')}
+          <span className="flex items-center gap-1.5 hover:text-cyan-300 transition-colors">
+            <span className="text-lg">🚿</span>
+            {bathrooms} {t('bathrooms')}
           </span>
         </div>
 
-        {/* Features tags */}
+        {/* Features Tags */}
         {features.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-3">
-            {features.slice(0, deviceType === 'mobile' ? 2 : 4).map((feature) => (
+          <div className="flex flex-wrap gap-2 pt-1">
+            {features.slice(0, deviceType === 'mobile' ? 2 : 3).map((feature) => (
               <span
                 key={feature}
-                className="text-xs bg-secondary/10 text-secondary px-2 py-1 rounded"
+                className="text-xs bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-md border border-cyan-500/30 font-medium hover:bg-cyan-500/30 transition-colors"
               >
                 {feature}
               </span>
             ))}
+            {features.length > (deviceType === 'mobile' ? 2 : 3) && (
+              <span className="text-xs bg-slate-800/50 text-slate-400 px-2 py-1 rounded-md border border-slate-700/50">
+                +{features.length - (deviceType === 'mobile' ? 2 : 3)}
+              </span>
+            )}
           </div>
         )}
 
-        {/* View button */}
-        <button className="w-full bg-accent text-white py-2 rounded font-semibold hover:bg-accent/90 transition-colors">
-          {t('features')}
+        {/* CTA Button */}
+        <button
+          className="w-full mt-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold py-2.5 px-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50 group-hover:translate-y-0 translate-y-0 active:scale-95"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick?.();
+          }}
+        >
+          {t('features')} →
         </button>
       </div>
     </div>
